@@ -1,13 +1,12 @@
-package tictactoe;
+package tictactoe.engine;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toSet;
-import static tictactoe.Square.*;
+import static tictactoe.engine.Square.*;
 
 public class Board {
 

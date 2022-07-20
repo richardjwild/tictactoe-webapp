@@ -1,9 +1,7 @@
-package tictactoe;
+package tictactoe.engine;
 
-import static tictactoe.Player.NOBODY;
-import static tictactoe.Player.O;
-import static tictactoe.Player.X;
-import static tictactoe.Status.*;
+import static tictactoe.engine.Player.*;
+import static tictactoe.engine.Status.*;
 
 public class Game {
 

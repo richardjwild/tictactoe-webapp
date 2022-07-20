@@ -1,4 +1,4 @@
-package tictactoe;
+package tictactoe.engine;
 
 public enum Square {
     TOP_MIDDLE, TOP_RIGHT, CENTRE_LEFT, CENTRE_MIDDLE, BOTTOM_LEFT, CENTRE_RIGHT, BOTTOM_MIDDLE, BOTTOM_RIGHT, TOP_LEFT

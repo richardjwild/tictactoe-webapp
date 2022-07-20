@@ -1,4 +1,4 @@
-package tictactoe;
+package tictactoe.engine;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,10 +8,10 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.util.Arrays;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static tictactoe.Player.NOBODY;
-import static tictactoe.Player.X;
-import static tictactoe.Square.*;
-import static tictactoe.Status.*;
+import static tictactoe.engine.Player.NOBODY;
+import static tictactoe.engine.Player.X;
+import static tictactoe.engine.Square.*;
+import static tictactoe.engine.Status.*;
 
 @DisplayName("Game adjudicator should")
 public class GameShould {

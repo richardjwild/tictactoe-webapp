@@ -1,4 +1,4 @@
-package tictactoe;
+package tictactoe.engine;
 
 public class GameState {
     private final Status status;
