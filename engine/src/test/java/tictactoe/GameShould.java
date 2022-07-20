@@ -9,12 +9,8 @@ import java.util.Arrays;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static tictactoe.Player.NOBODY;
-import static tictactoe.Player.O;
 import static tictactoe.Player.X;
 import static tictactoe.Square.*;
-import static tictactoe.Square.BOTTOM_RIGHT;
-import static tictactoe.Square.TOP_LEFT;
-import static tictactoe.Square.TOP_MIDDLE;
 import static tictactoe.Status.*;
 
 @DisplayName("Game adjudicator should")
