@@ -1,4 +1,3 @@
 rootProject.name = 'tictactoe-backend'
 include 'engine'
-include 'api'
 
