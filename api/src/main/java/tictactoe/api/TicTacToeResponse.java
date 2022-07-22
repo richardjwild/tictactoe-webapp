@@ -7,18 +7,25 @@ import tictactoe.engine.Square;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class TicTacToeResponse {
 
+    private final String gameId;
     private final String status;
     private final String nextUp;
     private final Map<String, String> board;
 
-    public TicTacToeResponse(Game game) {
+    public TicTacToeResponse(Game game, UUID gameId) {
         GameState gameState = game.state();
-        status = convertStatus(gameState);
-        nextUp = convertNextUp(gameState);
-        board = convertBoard(gameState);
+        this.gameId = convertGameId(gameId);
+        this.status = convertStatus(gameState);
+        this.nextUp = convertNextUp(gameState);
+        this.board = convertBoard(gameState);
+    }
+
+    private String convertGameId(UUID gameId) {
+        return gameId.toString();
     }
 
     private String convertStatus(GameState gameState) {
@@ -37,6 +44,10 @@ public class TicTacToeResponse {
             board.put(square.name(), player.name());
         }
         return board;
+    }
+
+    public String getGameId() {
+        return gameId;
     }
 
     public String getStatus() {
