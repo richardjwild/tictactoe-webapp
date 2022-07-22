@@ -1,6 +1,7 @@
 package tictactoe.backend.api;
 
 import org.springframework.web.bind.annotation.*;
+import tictactoe.backend.exception.GameNotFound;
 import tictactoe.backend.repository.GameRepository;
 import tictactoe.engine.Game;
 import tictactoe.engine.Square;
@@ -34,6 +35,6 @@ public class Controller {
                     gameRepository.store(game, gameUUID);
                     return new TicTacToeResponse(game, gameUUID);
                 })
-                .orElseThrow(() -> new IllegalArgumentException("Invalid game id"));
+                .orElseThrow(GameNotFound::new);
     }
 }

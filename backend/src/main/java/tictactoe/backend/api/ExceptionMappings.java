@@ -5,9 +5,16 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import tictactoe.backend.exception.GameNotFound;
 
 @ControllerAdvice
 public class ExceptionMappings {
+
+    @ExceptionHandler(GameNotFound.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public @ResponseBody String handleGameNotFound() {
+        return "Game not found";
+    }
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
