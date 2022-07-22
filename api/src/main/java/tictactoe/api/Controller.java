@@ -1,9 +1,8 @@
 package tictactoe.api;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tictactoe.engine.Game;
+import tictactoe.engine.Square;
 
 import java.util.UUID;
 
@@ -22,5 +21,18 @@ public class Controller {
         Game game = new Game();
         gameRepository.store(game, gameId);
         return new TicTacToeResponse(game, gameId);
+    }
+
+    @PostMapping(value = "/play", produces = "application/json")
+    public @ResponseBody TicTacToeResponse play(@RequestParam String gameId, @RequestParam String square) {
+        UUID gameUUID = UUID.fromString(gameId);
+        Square toPlay = Square.fromString(square);
+        return gameRepository.retrieve(gameUUID)
+                .map(game -> {
+                    game = game.play(toPlay);
+                    gameRepository.store(game, gameUUID);
+                    return new TicTacToeResponse(game, gameUUID);
+                })
+                .orElseThrow(() -> new IllegalArgumentException("Invalid game id"));
     }
 }
