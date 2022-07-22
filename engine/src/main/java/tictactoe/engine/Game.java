@@ -28,9 +28,9 @@ public class Game {
 
     public GameState state() {
         if (gameIsOver())
-            return new GameState(status, NOBODY);
+            return new GameState(status, NOBODY, board);
         else
-            return new GameState(status, nextPlayer());
+            return new GameState(status, nextPlayer(), board);
     }
 
     private boolean gameIsOver() {

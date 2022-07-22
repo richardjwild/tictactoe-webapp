@@ -1,5 +1,6 @@
 package tictactoe.engine;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -53,5 +54,9 @@ public class Board {
                 .filter(entry -> entry.getValue() == player)
                 .map(entry -> entry.getKey())
                 .collect(toSet());
+    }
+
+    public Map<Square, Player> takenSquares() {
+        return Collections.unmodifiableMap(takenSquares);
     }
 }

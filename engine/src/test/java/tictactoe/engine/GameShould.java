@@ -20,7 +20,7 @@ public class GameShould {
     void wait_for_x_to_play_first() {
         var game = new Game();
 
-        assertThat(game.state()).isEqualTo(new GameState(GAME_ON, X));
+        assertThat(game.state()).isEqualTo(new GameState(GAME_ON, X, null));
     }
 
     @Test
@@ -29,14 +29,14 @@ public class GameShould {
         game = game.play(TOP_LEFT);
         game = game.play(TOP_MIDDLE);
 
-        assertThat(game.state()).isEqualTo(new GameState(GAME_ON, X));
+        assertThat(game.state()).isEqualTo(new GameState(GAME_ON, X, null));
     }
 
     @Test
     void not_allow_a_square_to_be_played_twice() {
         var game = play(TOP_LEFT, TOP_MIDDLE, TOP_LEFT);
 
-        assertThat(game.state()).isEqualTo(new GameState(SQUARE_ALREADY_PLAYED, X));
+        assertThat(game.state()).isEqualTo(new GameState(SQUARE_ALREADY_PLAYED, X, null));
     }
 
     private Game play(Square... squares) {
@@ -60,7 +60,7 @@ public class GameShould {
                 BOTTOM_RIGHT,
                 BOTTOM_MIDDLE);
 
-        assertThat(game.state()).isEqualTo(new GameState(DRAW, NOBODY));
+        assertThat(game.state()).isEqualTo(new GameState(DRAW, NOBODY, null));
     }
 
     @ParameterizedTest
@@ -77,7 +77,7 @@ public class GameShould {
     void recognise_when_x_has_won(Square s1, Square s2, Square s3, Square s4, Square s5) {
         var game = play(s1, s2, s3, s4, s5);
 
-        assertThat(game.state()).isEqualTo(new GameState(X_HAS_WON, NOBODY));
+        assertThat(game.state()).isEqualTo(new GameState(X_HAS_WON, NOBODY, null));
     }
 
     @Test
@@ -90,7 +90,7 @@ public class GameShould {
                 CENTRE_MIDDLE,
                 TOP_RIGHT);
 
-        assertThat(game.state()).isEqualTo(new GameState(O_HAS_WON, NOBODY));
+        assertThat(game.state()).isEqualTo(new GameState(O_HAS_WON, NOBODY, null));
     }
 
     @Test
@@ -103,7 +103,7 @@ public class GameShould {
                 TOP_RIGHT,
                 CENTRE_RIGHT);
 
-        assertThat(game.state()).isEqualTo(new GameState(X_HAS_WON, NOBODY));
+        assertThat(game.state()).isEqualTo(new GameState(X_HAS_WON, NOBODY, null));
     }
 
     // X O X
@@ -121,6 +121,6 @@ public class GameShould {
                 BOTTOM_MIDDLE,
                 BOTTOM_RIGHT);
 
-        assertThat(game.state()).isEqualTo(new GameState(X_HAS_WON, NOBODY));
+        assertThat(game.state()).isEqualTo(new GameState(X_HAS_WON, NOBODY, null));
     }
 }
