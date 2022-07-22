@@ -1,10 +1,10 @@
-package tictactoe.api;
+package tictactoe.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TictactoeApiApplicationTests {
+class BackendTests {
 
 	@Test
 	void contextLoads() {

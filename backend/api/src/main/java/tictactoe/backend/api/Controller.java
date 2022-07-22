@@ -1,6 +1,7 @@
-package tictactoe.api;
+package tictactoe.backend.api;
 
 import org.springframework.web.bind.annotation.*;
+import tictactoe.backend.repository.GameRepository;
 import tictactoe.engine.Game;
 import tictactoe.engine.Square;
 

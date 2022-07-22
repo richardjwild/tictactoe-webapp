@@ -1,4 +1,4 @@
-package tictactoe.api;
+package tictactoe.backend.repository;
 
 import org.springframework.stereotype.Service;
 import tictactoe.engine.Game;

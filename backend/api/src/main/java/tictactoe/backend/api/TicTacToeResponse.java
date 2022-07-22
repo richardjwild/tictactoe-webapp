@@ -1,4 +1,4 @@
-package tictactoe.api;
+package tictactoe.backend.api;
 
 import tictactoe.engine.Game;
 import tictactoe.engine.GameState;
