@@ -19,16 +19,16 @@ public class Controller {
 
     @PostMapping(value = "/games/new", produces = "application/json")
     public @ResponseBody TicTacToeResponse newGame() {
-        UUID gameId = UUID.randomUUID();
-        Game game = new Game();
+        var gameId = UUID.randomUUID();
+        var game = new Game();
         gameRepository.store(game, gameId);
         return new TicTacToeResponse(game, gameId);
     }
 
     @PostMapping(value = "/games/{gameId}/play", produces = "application/json")
     public @ResponseBody TicTacToeResponse play(@PathVariable String gameId, @RequestParam String square) {
-        UUID gameUUID = UUID.fromString(gameId);
-        Square toPlay = Square.fromString(square);
+        var gameUUID = UUID.fromString(gameId);
+        var toPlay = Square.fromString(square);
         return gameRepository.retrieve(gameUUID)
                 .map(game -> {
                     game = game.play(toPlay);

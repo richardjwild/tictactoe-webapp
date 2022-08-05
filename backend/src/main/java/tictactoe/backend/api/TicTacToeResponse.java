@@ -2,8 +2,6 @@ package tictactoe.backend.api;
 
 import tictactoe.engine.Game;
 import tictactoe.engine.GameState;
-import tictactoe.engine.Player;
-import tictactoe.engine.Square;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,12 +35,12 @@ public class TicTacToeResponse {
     }
 
     private Map<String, String> convertBoard(GameState gameState) {
-        final Map<String, String> board = new HashMap<>();
-        Map<Square, Player> takenSquares = gameState.getBoard().takenSquares();
-        for (Square square: takenSquares.keySet()) {
-            Player player = takenSquares.get(square);
+        var board = new HashMap<String, String>();
+        var takenSquares = gameState.getBoard().takenSquares();
+        takenSquares.keySet().forEach(square -> {
+            var player = takenSquares.get(square);
             board.put(square.name(), player.name());
-        }
+        });
         return board;
     }
 
