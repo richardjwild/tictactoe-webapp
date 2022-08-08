@@ -28,13 +28,10 @@ public class Controller {
     @PostMapping(value = "/games/{gameId}/play", produces = "application/json")
     public @ResponseBody TicTacToeResponse play(@PathVariable String gameId, @RequestParam String square) {
         var gameUUID = UUID.fromString(gameId);
-        var toPlay = Square.fromString(square);
-        return gameRepository.retrieve(gameUUID)
-                .map(game -> {
-                    game = game.play(toPlay);
-                    gameRepository.store(game, gameUUID);
-                    return new TicTacToeResponse(game, gameUUID);
-                })
-                .orElseThrow(GameNotFound::new);
+        var nextMove = Square.fromString(square);
+        var game = gameRepository.retrieve(gameUUID).orElseThrow(GameNotFound::new);
+        game = game.play(nextMove);
+        gameRepository.store(game, gameUUID);
+        return new TicTacToeResponse(game, gameUUID);
     }
 }
