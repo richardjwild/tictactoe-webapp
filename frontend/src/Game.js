@@ -18,7 +18,7 @@ class Game extends React.Component {
     }
 
     async newGame() {
-        const response = await fetch('http://localhost:8080/games/new', {method: 'POST'})
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/games/new`, {method: 'POST'})
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -32,7 +32,7 @@ class Game extends React.Component {
     async play(square) {
         let requestBody = new FormData()
         requestBody.set("square", square)
-        const response = await fetch(`http://localhost:8080/games/${this.state.gameId}/play`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/games/${this.state.gameId}/play`, {
             method: 'POST',
             body: requestBody,
         })

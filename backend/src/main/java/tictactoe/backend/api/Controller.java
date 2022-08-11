@@ -8,7 +8,8 @@ import tictactoe.engine.Square;
 
 import java.util.UUID;
 
-@RestController
+@RestController()
+@RequestMapping(value = "/api/games/")
 public class Controller {
 
     private final GameRepository gameRepository;
@@ -17,7 +18,7 @@ public class Controller {
         this.gameRepository = gameRepository;
     }
 
-    @PostMapping(value = "/games/new", produces = "application/json")
+    @PostMapping(value = "new", produces = "application/json")
     public @ResponseBody TicTacToeResponse newGame() {
         var gameId = UUID.randomUUID();
         var game = new Game();
@@ -25,7 +26,7 @@ public class Controller {
         return new TicTacToeResponse(game, gameId);
     }
 
-    @PostMapping(value = "/games/{gameId}/play", produces = "application/json")
+    @PostMapping(value = "{gameId}/play", produces = "application/json")
     public @ResponseBody TicTacToeResponse play(@PathVariable String gameId, @RequestParam String square) {
         var gameUUID = UUID.fromString(gameId);
         var nextMove = Square.fromString(square);
