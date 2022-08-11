@@ -10,6 +10,10 @@ class Game extends React.Component {
     }
 
     componentDidMount() {
+        this.doNewGame()
+    }
+
+    doNewGame() {
         this.newGame().then((data) => this.setState(data))
     }
 
@@ -21,7 +25,7 @@ class Game extends React.Component {
         return await response.json()
     }
 
-    handleClick(square) {
+    doPlay(square) {
         this.play(square).then((data) => this.setState(data))
     }
 
@@ -44,11 +48,14 @@ class Game extends React.Component {
                 <div className="game-board">
                     <Board
                         squares={this.state.board}
-                        onClick={(square) => this.handleClick(square)}
+                        onClick={(square) => this.doPlay(square)}
                     />
                 </div>
                 <div className="game-info">
                     <div>{`Status: ${this.state.status}, to play: ${this.state.nextUp}`}</div>
+                </div>
+                <div className="new-game">
+                    <button onClick={() => this.doNewGame()}>New game</button>
                 </div>
             </div>
         )
