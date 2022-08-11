@@ -10,33 +10,32 @@ class Game extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:8080/games/new', {method: 'POST'})
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json()
-            })
-            .then((data) => this.setState(data));
+        this.newGame().then((data) => this.setState(data))
     }
 
-    handleClick(toPlay) {
+    async newGame() {
+        const response = await fetch('http://localhost:8080/games/new', {method: 'POST'})
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return await response.json()
+    }
+
+    handleClick(square) {
+        this.play(square).then((data) => this.setState(data))
+    }
+
+    async play(square) {
         let requestBody = new FormData()
-        requestBody.set("square", toPlay)
-        fetch(
-            `http://localhost:8080/games/${this.state.gameId}/play`,
-            {
-                method: 'POST',
-                body: requestBody,
-            }
-        )
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json()
-            })
-            .then((data) => this.setState(data))
+        requestBody.set("square", square)
+        const response = await fetch(`http://localhost:8080/games/${this.state.gameId}/play`, {
+            method: 'POST',
+            body: requestBody,
+        })
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return await response.json()
     }
 
     render() {
