@@ -3,8 +3,13 @@ import './Game.css'
 import Board from './Board';
 
 class Game extends React.Component {
+
     constructor(props) {
-        super(props);
+        super(props)
+        this.state = {board: new Map()}
+    }
+
+    componentDidMount() {
         fetch('http://localhost:8080/games/new', {method: 'POST'})
             .then((response) => {
                 if (!response.ok) {
@@ -35,18 +40,16 @@ class Game extends React.Component {
     }
 
     render() {
-        let board = this.state ? this.state.board : new Map();
-        let gameInfo = this.state ? `Status: ${this.state.status}, to play: ${this.state.nextUp}` : ''
         return (
             <div className="game">
                 <div className="game-board">
                     <Board
-                        squares={board}
+                        squares={this.state.board}
                         onClick={(square) => this.handleClick(square)}
                     />
                 </div>
                 <div className="game-info">
-                    <div>{gameInfo}</div>
+                    <div>{`Status: ${this.state.status}, to play: ${this.state.nextUp}`}</div>
                 </div>
             </div>
         )
