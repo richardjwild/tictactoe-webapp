@@ -52,7 +52,7 @@ class Game extends React.Component {
                     />
                 </div>
                 <div className="game-info">
-                    <div>{`Status: ${this.state.status}, to play: ${this.state.nextUp}`}</div>
+                    <div>Status: {this.state.status}, to play: {this.state.nextUp}</div>
                 </div>
                 <div className="new-game">
                     <button onClick={() => this.doNewGame()}>New game</button>
