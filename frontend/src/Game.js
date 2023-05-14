@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './Game.css'
 import Board from './Board';
+import { newGame, play } from "./backend-api";
 
 export default function Game() {
 
@@ -12,33 +13,12 @@ export default function Game() {
         }
     });
 
-    async function newGame() {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/games/new`, {method: 'POST'})
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return await response.json()
-    }
-
-    async function play(square) {
-        let requestBody = new FormData()
-        requestBody.set("square", square)
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/games/${gameState.gameId}/play`, {
-            method: 'POST',
-            body: requestBody,
-        })
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return await response.json()
-    }
-
     function doNewGame() {
         newGame().then(initialState => setGameState(initialState));
     }
 
     function doPlay(square) {
-        play(square).then(newState => setGameState(newState))
+        play(gameState.gameId, square).then(newState => setGameState(newState))
     }
 
     return (
@@ -56,5 +36,5 @@ export default function Game() {
                 <button onClick={doNewGame}>New game</button>
             </div>
         </div>
-    )
+    );
 }
