@@ -1,23 +1,18 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './Game.css'
 import Board from './Board';
 
-class Game extends React.Component {
+export default function Game() {
 
-    constructor(props) {
-        super(props)
-        this.state = {board: new Map()}
-    }
+    const [ state, setState ] = useState(null);
 
-    componentDidMount() {
-        this.doNewGame()
-    }
+    useEffect(() => {
+        if (!state) {
+            doNewGame();
+        }
+    });
 
-    doNewGame() {
-        this.newGame().then((data) => this.setState(data))
-    }
-
-    async newGame() {
+    async function newGame() {
         const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/games/new`, {method: 'POST'})
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -25,14 +20,10 @@ class Game extends React.Component {
         return await response.json()
     }
 
-    doPlay(square) {
-        this.play(square).then((data) => this.setState(data))
-    }
-
-    async play(square) {
+    async function play(square) {
         let requestBody = new FormData()
         requestBody.set("square", square)
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/games/${this.state.gameId}/play`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/games/${state.gameId}/play`, {
             method: 'POST',
             body: requestBody,
         })
@@ -42,24 +33,28 @@ class Game extends React.Component {
         return await response.json()
     }
 
-    render() {
-        return (
-            <div className="game">
-                <div className="game-board">
-                    <Board
-                        squares={this.state.board}
-                        onClick={(square) => this.doPlay(square)}
-                    />
-                </div>
-                <div className="game-info">
-                    <p>Status: {this.state.status}, to play: {this.state.nextUp}</p>
-                </div>
-                <div className="new-game">
-                    <button onClick={() => this.doNewGame()}>New game</button>
-                </div>
-            </div>
-        )
+    function doNewGame() {
+        newGame().then(data => setState(data));
     }
-}
 
-export default Game;
+    function doPlay(square) {
+        play(square).then(data => setState(data))
+    }
+
+    return (
+        <div className="game">
+            <div className="game-board">
+                <Board
+                    squares={state?.board}
+                    onClick={doPlay}
+                />
+            </div>
+            <div className="game-info">
+                <p>Status: {state?.status}, to play: {state?.nextUp}</p>
+            </div>
+            <div className="new-game">
+                <button onClick={doNewGame}>New game</button>
+            </div>
+        </div>
+    )
+}
